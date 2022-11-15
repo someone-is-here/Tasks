@@ -5,4 +5,4 @@ HttpRequestsChecking/Lib/*
 HttpRequestsChecking/Scripts/*
 HttpRequestsChecking/tests/__pycache__/*
 HttpRequestsChecking/.coverage
-HttpRequestsChecking/pyenv.cfg
+HttpRequestsChecking/pyvenv.cfg
