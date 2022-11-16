@@ -1,0 +1,12 @@
+sync on the same input
+
+--- 21.751079559326172 seconds ---
+--- 21.238536596298218 seconds ---
+--- 24.24407124519348 seconds ---
+
+
+async on the same input (multithreading)
+
+--- 5.642645359039307 seconds ---
+--- 5.747341871261597 seconds ---
+--- 4.993072986602783 seconds ---

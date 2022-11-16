@@ -1,28 +1,29 @@
-import urlextract
 import requests
+import threading
+import urlextract
 
 extractor = urlextract.URLExtract()
 
-"""
-Function gets string for checking and monitors if it is a link
-"""
-
 
 def check_is_request(url):
+    """
+    Function gets string for checking and monitors if it is a link
+    """
+    if len(extractor.find_urls(url)) == 0:
+        return False
+
     try:
-        r = requests.head(url, verify=False, timeout=5)
+        requests.head(url, verify=False, timeout=5)
         return True
-    except:
+    except requests.exceptions.ConnectionError:
         return False
 
 
-"""
-Function gets string for checking(url) and http request then checks if the request is available
-Returns tuple with (Boolean(if request is available), status_code)
-"""
-
-
 def check_http_request(url, http_request):
+    """
+    Function gets string for checking(url) and http request then checks if the request is available
+    Returns tuple with (Boolean(if request is available), status_code)
+    """
     result = requests.request(http_request, url)
 
     if result.status_code != 405:
@@ -31,24 +32,29 @@ def check_http_request(url, http_request):
     return False, 405
 
 
-"""
-Function gets string for checking and checks all http request
-Returns dict with requests and codes if request where available
-"""
-
-
 def check_all_http_requests(str_for_check):
-    result_of_checking = {}
-
+    """
+    Function gets string for checking and checks all http request
+    Returns dict with requests and codes if request where available
+    """
     list_with_requests = ["GET", "POST",
                           "PUT", "PATCH",
                           "HEAD", "DELETE",
                           "OPTIONS"]
 
-    for item in list_with_requests:
-        curr_res = check_http_request(str_for_check, item)
+    list_with_thread = []
+    list_with_results = []
 
-        if curr_res[0]:
-            result_of_checking[item] = curr_res[1]
+    for item in list_with_requests:
+        thread = threading.Thread(target=lambda list_with_res, name, url, http_request:
+        list_with_res.append((name, check_http_request(url, http_request))),
+                                  args=(list_with_results, item, str_for_check, item))
+        thread.start()
+        list_with_thread.append(thread)
+
+    for thread in list_with_thread:
+        thread.join()
+
+    result_of_checking = {key: value[1] for key, value in dict(list_with_results).items() if value[0]}
 
     return result_of_checking

@@ -1,1 +1,1 @@
-{"https://wrongsite.com": {"GET": 200, "POST": 200, "PUT": 403, "PATCH": 403, "HEAD": 200, "DELETE": 403, "OPTIONS": 200}}
+{"https://wrongsite.com": {"PATCH": 403, "PUT": 403, "DELETE": 403, "GET": 200, "OPTIONS": 200, "HEAD": 200, "POST": 200}, "https://google.com": {"HEAD": 200, "GET": 200}, "https://facebook.com": {"HEAD": 200, "POST": 200, "DELETE": 200, "GET": 200, "PATCH": 200, "PUT": 200, "OPTIONS": 200}, "https://yandex.com": {"POST": 200, "PUT": 200, "PATCH": 200, "GET": 200, "HEAD": 200, "DELETE": 200, "OPTIONS": 200}}
