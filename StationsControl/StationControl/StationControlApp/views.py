@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -34,6 +36,24 @@ class ShowStation(DetailView):
     context_object_name = 'station'
 
 
+class ShowState(DetailView):
+    model = Station
+    template_name = 'StationControlApp/state.html'
+    pk_url_kwarg = 'station_id'
+    context_object_name = 'station'
+
+
+def check_is_workable(distance, position, station):
+    result_distance = position + distance
+    if result_distance >= 0:
+        station.state = station.STATES[0][1]
+    else:
+        station.state = station.STATES[1][1]
+        station.time_broken = datetime.now()
+
+    return result_distance
+
+
 class AddIndication(LoginRequiredMixin, CreateView):
     form_class = AddIndicationForm
     template_name = 'StationControlApp/create_indication.html'
@@ -45,6 +65,19 @@ class AddIndication(LoginRequiredMixin, CreateView):
         indication = form.save()
         indication.user = self.request.user
         indication.save()
+        station = Station.objects.get(pk=self.kwargs['station_id'])
+        if indication.axis == '1':
+            distance = check_is_workable(indication.distance, station.x_position, station)
+            station.x_position = distance
+        elif indication.axis == '2':
+            distance = check_is_workable(indication.distance, station.y_position, station)
+            station.y_position = distance
+        else:
+            distance = check_is_workable(indication.distance, station.z_position, station)
+            station.z_position = distance
+
+        station.save()
+
         return redirect('station', self.kwargs['station_id'])
 
 

@@ -1,0 +1,15 @@
+{% extends 'StationControlApp/base.html' %}
+
+{% block content %}
+
+<ul>
+ <li>X: {{station.x_position}}</li>
+ <li>Y: {{station.y_position}}</li>
+ <li>Z: {{station.z_position}}</li>
+</ul>
+<ul>
+   <li>
+    <a href="{% url 'station' station.pk %}">Back</a>
+   </li>
+</ul>
+{% endblock %}

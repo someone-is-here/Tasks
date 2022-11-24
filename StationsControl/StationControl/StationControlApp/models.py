@@ -4,9 +4,6 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
 
-#не очень реализация
-def default_datetime(): return datetime.now() + timedelta(weeks=50, hours=10, minutes=15)
-
 
 class Station(models.Model):
     STATES = (('1', 'running'),
@@ -16,7 +13,7 @@ class Station(models.Model):
     state = models.CharField(choices=STATES, max_length=8, default=STATES[0][1], editable=False)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", null=True, blank=True)
     time_create = models.DateTimeField(auto_now_add=True, editable=False)
-    time_broken = models.DateTimeField(default=default_datetime(), editable=False)
+    time_broken = models.DateTimeField(null=True, blank=True, editable=False)
 
     x_position = models.IntegerField(default=100, editable=False)
     y_position = models.IntegerField(default=100, editable=False)

@@ -19,16 +19,12 @@
 {% endif %}
 </div>
 <ul>
- <li>{{station.x_position}}</li>
- <li>{{station.y_position}}</li>
- <li>{{station.z_position}}</li>
-</ul>
-<ul>
    <li>
     <a href="{% url 'stations' %}">Back</a>
     <a href="{% url 'update_station' station.pk %}">Update</a>
     <a href="{% url 'delete_station' station.pk %}">Delete</a>
-       <a href="{% url 'create_indication' station.pk %}">Add indication</a>
+    <a href="{% url 'create_indication' station.pk %}">Add indication</a>
+    <a href="{% url 'state' station.pk %}">State</a>
    </li>
 </ul>
 {% endblock %}
