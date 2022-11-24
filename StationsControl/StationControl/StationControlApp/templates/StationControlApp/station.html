@@ -4,10 +4,20 @@
 
 <h1>{{station.title}}</h1>
 <h1>{{station.state}}</h1>
-<p>{{station.photo}}</p>
+<p>
+    <span>
+        Create time: {{station.time_create}}
+    </span>
+    <hr>
+    <span>
+        Broken time: {{station.time_broken}}
+    </span>
+</p>
+<div>
 {% if station.photo %}
 <img src="{{station.photo.url}}"/>
 {% endif %}
+</div>
 <ul>
  <li>{{station.x_position}}</li>
  <li>{{station.y_position}}</li>
@@ -15,9 +25,10 @@
 </ul>
 <ul>
    <li>
-    <a type="submit" href="{% url 'stations' %}">Back</a>
-    <a type="submit" href="{% url 'update_station' station.pk %}">Update</a>
-    <a type="submit" href="{% url 'delete_station' station.pk %}">Delete</a>
+    <a href="{% url 'stations' %}">Back</a>
+    <a href="{% url 'update_station' station.pk %}">Update</a>
+    <a href="{% url 'delete_station' station.pk %}">Delete</a>
+       <a href="{% url 'create_indication' station.pk %}">Add indication</a>
    </li>
 </ul>
 {% endblock %}

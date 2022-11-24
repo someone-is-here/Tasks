@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, login
-from StationControlApp.forms import UserCreationForm, AddStationForm
+from StationControlApp.forms import UserCreationForm, AddStationForm, AddIndicationForm
 from StationControlApp.models import Station
 
 
@@ -34,13 +34,30 @@ class ShowStation(DetailView):
     context_object_name = 'station'
 
 
+class AddIndication(LoginRequiredMixin, CreateView):
+    form_class = AddIndicationForm
+    template_name = 'StationControlApp/create_indication.html'
+    pk_url_kwarg = 'station_id'
+    context_object_name = 'indication'
+    login_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        indication = form.save()
+        indication.user = self.request.user
+        indication.save()
+        return redirect('station', self.kwargs['station_id'])
+
+
 class AddStation(LoginRequiredMixin, CreateView):
     form_class = AddStationForm
     template_name = 'StationControlApp/create_station.html'
     pk_url_kwarg = 'station_id'
     context_object_name = 'station'
-    success_url = reverse_lazy('home')
     login_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        station = form.save()
+        return redirect('station', station.id)
 
 
 class UpdateStation(LoginRequiredMixin, UpdateView):

@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from StationControlApp.models import Station
+from StationControlApp.models import Station, Indication
 from django.urls import reverse_lazy
 
 
@@ -9,6 +9,12 @@ class AddStationForm(forms.ModelForm):
     class Meta:
         model = Station
         fields = '__all__'
+
+
+class AddIndicationForm(forms.ModelForm):
+    class Meta:
+        model = Indication
+        fields = ['axis', 'distance']
 
 
 class UserCreationForm(forms.ModelForm):
