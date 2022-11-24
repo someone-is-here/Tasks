@@ -1,0 +1,23 @@
+{% extends 'StationControlApp/base.html' %}
+
+{% block content %}
+
+<h1>{{station.title}}</h1>
+<h1>{{station.state}}</h1>
+<p>{{station.photo}}</p>
+{% if station.photo %}
+<img src="{{station.photo.url}}"/>
+{% endif %}
+<ul>
+ <li>{{station.x_position}}</li>
+ <li>{{station.y_position}}</li>
+ <li>{{station.z_position}}</li>
+</ul>
+<ul>
+   <li>
+    <a type="submit" href="{% url 'stations' %}">Back</a>
+    <a type="submit" href="{% url 'update_station' station.pk %}">Update</a>
+    <a type="submit" href="{% url 'delete_station' station.pk %}">Delete</a>
+   </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'StationControlApp/base.html' %}
+
+
+{% block content %}
+<h1>Page</h1>
+<p>Something important</p>
+{% for station in stations %}
+<ul>
+    <li><a href="{% url 'station' station.pk %}">{{station.title}}</a></li>
+    <li>{{station.state}}</li>
+</ul>
+<hr>
+{% endfor %}
+{% endblock %}
