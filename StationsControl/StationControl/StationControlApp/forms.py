@@ -6,12 +6,18 @@ from django.urls import reverse_lazy
 
 
 class AddStationForm(forms.ModelForm):
+    """
+    form for adding station, require same fields as model
+    """
     class Meta:
         model = Station
         fields = '__all__'
 
 
 class AddIndicationForm(forms.ModelForm):
+    """
+    form for adding indication, require axis and distance
+    """
     class Meta:
         model = Indication
         fields = ['axis', 'distance']

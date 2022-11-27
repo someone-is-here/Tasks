@@ -6,3 +6,9 @@ HttpRequestsChecking/Scripts/*
 HttpRequestsChecking/tests/__pycache__/*
 HttpRequestsChecking/.coverage
 HttpRequestsChecking/pyvenv.cfg
+StationsControl/.idea/*
+StationsControl/StationControl/.pytest_cache/*
+StationsControl/StationControl/data/*
+StationsControl/StationControl/StationControlApp/__pycache__/*
+StationsControl/StationControl/StationControl/__pycache__/*
+StationsControl/StationControl/StationControlApp/tests/__pycache__/*

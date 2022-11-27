@@ -6,6 +6,18 @@ from django.contrib.auth.models import User
 
 
 class Station(models.Model):
+    """
+    Station
+    - id
+    - title: str
+    - state: str (1-running, 2-broken). Default - running. Set by default. Not editable
+    - Model creation date: datetime. Set by default. Not editable
+    - Station breakdown date: datetime. Set by default. Not editable
+    - x_position: int. Set by default. Not editable.
+    - y_position: int. Set by default. Not editable.
+    - z_position: int. Set by default. Not editable.
+    """
+
     STATES = (('1', 'running'),
               ('2', 'broken'))
 
@@ -31,6 +43,15 @@ class Station(models.Model):
 
 
 class Indication(models.Model):
+    """
+    Indication
+    - id
+    - user: User - the user who made the instruction.
+    - axis: str(x, y, z).
+    - distance: int.
+
+    Needed to track activities.
+    """
     AXIS = (('1', 'x'),
             ('2', 'y'),
             ('3', 'z'))
